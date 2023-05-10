@@ -1,10 +1,10 @@
 <app-header (toggleSideBarForMe)="sideBarToggler()"></app-header>
 
-<mat-drawer-container>
-  <mat-drawer mode="side" [opened]="sideBarOpen">
+<mat-drawer-container class="h-full">
+  <mat-drawer class="w-1/4" mode="side" [opened]="sideBarOpen">
     <app-sidebar></app-sidebar>
   </mat-drawer>
-  <mat-drawer-content>
+  <mat-drawer-content class="p-3">
     <router-outlet></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>

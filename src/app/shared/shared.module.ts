@@ -3,11 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AlertComponent } from './alert/alert.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {
-  MatSidenavModule,
-  MatDrawerContainer,
-  MatDrawer,
-} from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -18,6 +14,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { RouterModule } from '@angular/router';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 const MATERIAL = [
   MatSidenavModule,
@@ -30,6 +27,7 @@ const MATERIAL = [
   MatListModule,
   MatToolbarModule,
   MatMenuModule,
+  MatExpansionModule
 ];
 
 @NgModule({

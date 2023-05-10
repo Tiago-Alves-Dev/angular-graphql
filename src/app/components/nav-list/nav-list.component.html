@@ -1,0 +1,12 @@
+<ng-container *ngIf="expandable; else navListTemplate">
+  <mat-expansion-panel class="!shadow-none">
+    <mat-expansion-panel-header>
+      <mat-panel-title class="pl-2 pr-2 text-base">{{ title }}</mat-panel-title>
+    </mat-expansion-panel-header>
+    <ng-container *ngTemplateOutlet="navListTemplate"></ng-container>
+  </mat-expansion-panel>
+</ng-container>
+
+<ng-template #navListTemplate>
+  <mat-nav-list><ng-content></ng-content></mat-nav-list>
+</ng-template>

@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AreaComponent } from './widgets/area/area.component';
 import { CardComponent } from './widgets/card/card.component';
 import { PieComponent } from './widgets/pie/pie.component';
+import { NavListComponent } from './nav-list/nav-list.component';
 
 const COMPONENTS = [
   FooterComponent,
@@ -15,6 +16,7 @@ const COMPONENTS = [
   AreaComponent,
   CardComponent,
   PieComponent,
+  NavListComponent
 ];
 
 @NgModule({

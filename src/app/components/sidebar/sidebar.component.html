@@ -1,10 +1,11 @@
 <mat-nav-list>
-  <div class="profile-card">
+  <div class="flex p-3 flex-col justify-center items-center">
     <div class="header">
       <h2>Soufiane FADIL</h2>
       <h4>example@email.com</h4>
     </div>
     <img
+      class="w-20 h-20 object-cover rounded-full"
       src="https://material.angular.io/assets/img/examples/shiba2.jpg"
       alt="Soufiane FADIL"
     />
@@ -12,29 +13,50 @@
 
   <mat-divider></mat-divider>
 
-  <h2 matSubheader>Pages</h2>
+  <h2 matSubheader class="!my-2">Paginas</h2>
 
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="/"
-    >Dashboard</a
-  >
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="/student"
-    >Aluno</a
-  >
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="/room"
-    >Sala</a
-  >
+  <mat-list-item>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/"
+      >Dashboard</a
+    >
+  </mat-list-item>
+
+  <app-nav-list [expandable]="true" [title]="'Aluno'">
+    <mat-list-item routerLink="/student">Lista de Alunos</mat-list-item>
+    <mat-list-item routerLink="/student">Relatório</mat-list-item>
+    <mat-list-item routerLink="/student">Criar</mat-list-item>
+    <mat-divider></mat-divider>
+  </app-nav-list>
+
+  <app-nav-list [expandable]="true" [title]="'Sala'">
+    <mat-list-item routerLink="/room">Lista de Salas</mat-list-item>
+    <mat-list-item routerLink="/room">Relatório</mat-list-item>
+    <mat-list-item routerLink="/room">Criar</mat-list-item>
+    <mat-divider></mat-divider>
+  </app-nav-list>
 
   <mat-divider></mat-divider>
 
-  <h2 matSubheader>Tools</h2>
+  <h2 matSubheader class="!my-2">Configurações</h2>
 
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="/contacts">
-    <mat-icon>import_contacts</mat-icon>
-    Contacts
-  </a>
+  <mat-list-item>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/contacts">
+      <mat-icon class="!align-middle mr-3">import_contacts</mat-icon>
+      Contato
+    </a>
+  </mat-list-item>
 
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="/contacts">
-    <mat-icon>contact_phone</mat-icon>
-    Leads
-  </a>
+  <mat-list-item>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/contacts">
+      <mat-icon class="!align-middle mr-3">contact_phone</mat-icon>
+      Leads
+    </a>
+  </mat-list-item>
+
+  <mat-list-item>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/contacts">
+      <mat-icon class="!align-middle mr-3">exit_to_app</mat-icon>
+      Sair
+    </a>
+  </mat-list-item>
 </mat-nav-list>
