@@ -1,0 +1,64 @@
+<div class="container">
+  <mat-card class="max-w-md my-8 text-center mx-auto">
+    <mat-card-title class="p-3 text-left"> Realize seu login </mat-card-title>
+
+    <mat-card-content class="p-3">
+      <form class="text-left" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+        <h1><b>Bem-vindo!</b></h1>
+
+        <mat-form-field [className]="'block'" appearance="fill" class="mb-2">
+          <mat-label>Endereço de e-mail</mat-label>
+          <input
+            #emailInput
+            matInput
+            placeholder="Digite seu email"
+            formControlName="email"
+            required
+          />
+          <mat-error *ngIf="!emailInput.value">{{
+            isFieldErrorsRequired("email", "E-mail")
+          }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field [className]="'block'" appearance="fill" class="mb-2">
+          <mat-label>Senha</mat-label>
+          <input
+            #passwordInput
+            matInput
+            placeholder="Password"
+            [type]="hide ? 'password' : 'text'"
+            formControlName="password"
+            required
+          />
+          <mat-icon matSuffix (click)="hide = !hide">{{
+            hide ? "visibility_off" : "visibility"
+          }}</mat-icon>
+          <mat-error *ngIf="!passwordInput.value"
+            >{{ isFieldErrorsRequired("password", "Senha") }}
+          </mat-error>
+        </mat-form-field>
+
+        <div class="row mb-2">
+          <button
+            mat-raised-button
+            color="primary"
+            class="w-100"
+            (click)="onSubmit()"
+          >
+            Entrar
+          </button>
+        </div>
+        <p class="text-left">
+          <b><a href="#">Esqueci minha senha</a></b>
+        </p>
+        <p class="text-left">
+          Novo na plataforma? <b><a routerLink="/register">Cadastre-se</a></b>
+        </p>
+      </form>
+    </mat-card-content>
+
+    <mat-card-footer *ngIf="load">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
+  </mat-card>
+</div>

@@ -1,8 +1,9 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AlertComponent } from './alert/alert.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+
+// MATERIAL
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
@@ -15,6 +16,14 @@ import { MatMenuModule } from '@angular/material/menu';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { RouterModule } from '@angular/router';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const MATERIAL = [
   MatSidenavModule,
@@ -27,11 +36,19 @@ const MATERIAL = [
   MatListModule,
   MatToolbarModule,
   MatMenuModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatProgressBarModule,
+  MatChipsModule,
+  MatButtonModule,
+  MatSnackBarModule,
+  MatInputModule,
+  MatSelectModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
 ];
 
 @NgModule({
-  declarations: [AlertComponent],
+  declarations: [],
   imports: [
     CommonModule,
     FormsModule,
@@ -44,10 +61,9 @@ const MATERIAL = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    AlertComponent,
     ...MATERIAL,
     HighchartsChartModule,
-    RouterModule
+    RouterModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

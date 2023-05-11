@@ -6,8 +6,12 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class AlertService {
-  private subject = new Subject<any>();
+  private subject: Subject<any> = new Subject<any>();
   private keepAfterNavigationChange = false;
+
+  // protected woodworkCustomization: Subject<any> = new Subject();
+  // protected woodworkCustomizationObservable =
+  //   this.woodworkCustomization.asObservable();
 
   constructor(private router: Router) {
     router.events.subscribe((event) => {

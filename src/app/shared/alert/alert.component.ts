@@ -45,12 +45,12 @@ export class AlertComponent {
             panelClass: ['warning-snackbar'],
           });
         } else {
-          this._snackBar.open('error', 'Fechar', {
-            horizontalPosition: this.horizontalPosition,
-            verticalPosition: this.verticalPosition,
-            duration: 2000,
-            panelClass: ['error-snackbar'],
-          });
+          // this._snackBar.open('error', 'Fechar', {
+          //   horizontalPosition: this.horizontalPosition,
+          //   verticalPosition: this.verticalPosition,
+          //   duration: 2000,
+          //   panelClass: ['error-snackbar'],
+          // });
         }
       }
     });

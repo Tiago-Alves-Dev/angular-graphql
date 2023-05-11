@@ -1,0 +1,108 @@
+<div class="container">
+  <mat-card class="max-w-md my-8 text-center mx-auto">
+    <mat-card-title class="p-3 text-left"> Cadastre-se </mat-card-title>
+
+    <mat-card-content class="p-3">
+      <form class="text-left" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+        <h3><b>Por favor, preencha os campos abaixo</b></h3>
+
+        <mat-form-field [className]="'block'" appearance="fill" class="mb-2">
+          <mat-label>Nome Completo</mat-label>
+          <input
+            #name
+            matInput
+            placeholder="Digite seu nome completo"
+            formControlName="name"
+            required
+          />
+          <mat-error *ngIf="!name.value">{{
+            isFieldErrorsRequired("name", "Nome")
+          }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field [className]="'block'" appearance="fill" class="mb-2">
+          <mat-label>Endereço de e-mail</mat-label>
+          <input
+            #emailInput
+            matInput
+            placeholder="Digite seu email"
+            formControlName="email"
+            required
+          />
+          <mat-error *ngIf="!emailInput.value">{{
+            isFieldErrorsRequired("email", "E-mail")
+          }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field [className]="'block'" appearance="fill" class="mb-2">
+          <mat-label>Celular</mat-label>
+          <input
+            #phone
+            matInput
+            placeholder="Digite seu celular"
+            formControlName="phone"
+            required
+          />
+          <mat-error *ngIf="!phone.value">{{
+            isFieldErrorsRequired("phone", "Celular")
+          }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field [className]="'block'" appearance="fill" class="mb-2">
+          <mat-label>Senha</mat-label>
+          <input
+            #password
+            matInput
+            placeholder="Password"
+            [type]="hide ? 'password' : 'text'"
+            formControlName="password"
+            required
+          />
+          <mat-icon matSuffix (click)="hide = !hide">{{
+            hide ? "visibility_off" : "visibility"
+          }}</mat-icon>
+          <mat-error *ngIf="!password.value"
+            >{{ isFieldErrorsRequired("password", "Senha") }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field [className]="'block'" appearance="fill" class="mb-2">
+          <mat-label>Confirmação de Senha</mat-label>
+          <input
+            #confirmPassword
+            matInput
+            placeholder="Password"
+            [type]="hide ? 'password' : 'text'"
+            required
+            formControlName="confirmPassword"
+            (change)="verifyPassword()"
+          />
+          <mat-icon matSuffix (click)="hide = !hide">{{
+            hide ? "visibility_off" : "visibility"
+          }}</mat-icon>
+          <mat-error *ngIf="!confirmPassword.value">{{
+            isFieldErrorsRequired("confirmPassword", "Confirmação de senha")
+          }}</mat-error>
+        </mat-form-field>
+
+        <div class="row mb-2">
+          <button
+            mat-raised-button
+            color="primary"
+            class="w-100"
+            (click)="onSubmit()"
+          >
+            Cadastrar
+          </button>
+        </div>
+        <p class="text-right">
+          <b><a routerLink="/login">Voltar para login</a></b>
+        </p>
+      </form>
+    </mat-card-content>
+
+    <mat-card-footer *ngIf="load">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
+  </mat-card>
+</div>
