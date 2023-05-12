@@ -4,7 +4,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AlertService } from '../services/alert.service';
 import { Constants } from '../config/constants';
-import { User } from 'src/app/interface/user.interface';
+import { UserDto } from '../dtos/user.dto';
+import { PayloadDto } from '../dtos/payload.dto';
 
 @Injectable()
 export abstract class AbstractComponent implements OnDestroy {
@@ -25,24 +26,31 @@ export abstract class AbstractComponent implements OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  protected getCurrentUser(): User {
+  protected getCurrentUser(): PayloadDto {
     const currentUser = JSON.parse(
       localStorage?.getItem(Constants.currentUser) || '{}'
-    );
-    return currentUser ? currentUser : undefined;
+    ) as PayloadDto;
+    return currentUser ? currentUser : ({} as PayloadDto);
   }
 
-  protected getNameCurrentUser(): any {
+  protected getNameCurrentUser(): String | any {
     const currentUser = this.getCurrentUser();
     if (currentUser) {
-      return currentUser.user.name;
+      return currentUser?.user?.name;
     }
   }
 
-  protected getIdCurrentUser(): any {
+  protected getEmailCurrentUser(): String | any {
     const currentUser = this.getCurrentUser();
     if (currentUser) {
-      return currentUser.user.id;
+      return currentUser?.user?.email;
+    }
+  }
+
+  protected getIdCurrentUser(): String | any {
+    const currentUser = this.getCurrentUser();
+    if (currentUser) {
+      return currentUser.user.userId;
     }
   }
 
