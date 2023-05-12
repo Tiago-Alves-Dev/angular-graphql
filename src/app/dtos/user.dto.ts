@@ -5,4 +5,5 @@ export interface UserDto {
   password: string;
   isActive?: boolean;
   phone: string;
+  image?: string;
 }

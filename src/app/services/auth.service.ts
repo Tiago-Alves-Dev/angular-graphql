@@ -5,7 +5,6 @@ import { ApolloQueryResult } from '@apollo/client/core';
 import { Observable, map } from 'rxjs';
 import { Constants } from '../config/constants';
 import { PayloadDto } from '../dtos/payload.dto';
-import { throwError as observableThrowError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

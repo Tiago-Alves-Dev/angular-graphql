@@ -6,6 +6,8 @@ import { AlertService } from '../services/alert.service';
 import { Constants } from '../config/constants';
 import { UserDto } from '../dtos/user.dto';
 import { PayloadDto } from '../dtos/payload.dto';
+import { FirebaseService } from '../services/storage/firebase/firebase.service';
+import { UtilHelper } from './util.helper';
 
 @Injectable()
 export abstract class AbstractComponent implements OnDestroy {
@@ -13,6 +15,7 @@ export abstract class AbstractComponent implements OnDestroy {
   protected router: Router;
   protected route: ActivatedRoute;
   protected alertService: AlertService;
+  protected firebaseService: FirebaseService;
   protected subscriptions: Subscription = new Subscription();
 
   constructor(injector: Injector) {
@@ -20,6 +23,7 @@ export abstract class AbstractComponent implements OnDestroy {
     this.router = injector.get(Router);
     this.route = injector.get(ActivatedRoute);
     this.alertService = injector.get(AlertService);
+    this.firebaseService = injector.get(FirebaseService);
   }
 
   ngOnDestroy(): void {
@@ -54,7 +58,11 @@ export abstract class AbstractComponent implements OnDestroy {
     }
   }
 
-  getParam(key: string): any {
+  protected getUserImage(user?: UserDto): string {
+    return UtilHelper.getUserImage(user ? user : this.getCurrentUser().user);
+  }
+
+  protected getParam(key: string): any {
     let result = null;
     this.route.params.forEach((params: Params) => (result = params[key]));
     return result;

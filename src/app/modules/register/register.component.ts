@@ -1,6 +1,7 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AbstractComponent } from 'src/app/core/abstract.component';
+import { UserDto } from 'src/app/dtos/user.dto';
 
 @Component({
   selector: 'app-register',
@@ -11,6 +12,7 @@ export class RegisterComponent extends AbstractComponent implements OnInit {
   public formGroup!: FormGroup;
   public load: boolean = false;
   public hide: boolean = true;
+  private user: UserDto = {} as UserDto;
 
   constructor(injector: Injector, private formBuilder: FormBuilder) {
     super(injector);
@@ -24,9 +26,12 @@ export class RegisterComponent extends AbstractComponent implements OnInit {
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
-      phone: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
+      phone: ['', [Validators.required]],
     });
+    // this.formGroup.valueChanges.subscribe((value) => {
+    //   this.user = Object.assign(this.user, value);
+    // });
   }
 
   isFieldErrorsRequired(field: string, name: string): any {
@@ -50,7 +55,11 @@ export class RegisterComponent extends AbstractComponent implements OnInit {
     if (this.formGroup.valid) {
       if (this.verifyPassword()) {
         this.alertService.success('sucesso');
-        console.log(this.formGroup.getRawValue());
+        let value = this.formGroup.getRawValue();
+        delete value.confirmPassword;
+        this.user = Object.assign(this.user, value);
+        console.log(this.user);
+
         this.load = true;
       }
       // const email = this.formGroup.value.email.trim();

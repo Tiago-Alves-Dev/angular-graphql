@@ -66,28 +66,6 @@ export class LoginComponent extends AbstractComponent implements OnInit {
             }
           },
         });
-
-      // this.authService
-      //   .signIn({
-      //     email: this.formGroup.value.email.trim(),
-      //     password: this.formGroup.value.password,
-      //   })
-      //   .subscribe({
-      //     next: async (res: any) => {
-      //       console.log('res');
-      //       console.log(res);
-      //       this.alertService.success('sucesso');
-      //       await this.delay(1000);
-      //       this.load = false;
-      //       window.location.href = this.returnUrl;
-      //     },
-      //     error: (err) => {
-      //       console.log('err');
-      //       console.log(err);
-      //       this.alertService.error(err);
-      //       this.load = false;
-      //     },
-      //   });
     }
   }
 }

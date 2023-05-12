@@ -42,6 +42,8 @@
             placeholder="Digite seu celular"
             formControlName="phone"
             required
+            prefix="+55"
+            mask="(00) 00000-0000"
           />
           <mat-error *ngIf="!phone.value">{{
             isFieldErrorsRequired("phone", "Celular")
@@ -75,7 +77,6 @@
             [type]="hide ? 'password' : 'text'"
             required
             formControlName="confirmPassword"
-            (change)="verifyPassword()"
           />
           <mat-icon matSuffix (click)="hide = !hide">{{
             hide ? "visibility_off" : "visibility"

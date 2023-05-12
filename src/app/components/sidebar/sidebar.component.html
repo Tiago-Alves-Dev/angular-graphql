@@ -4,11 +4,20 @@
       <h2>{{ getNameCurrentUser() }}</h2>
       <h4>{{ getEmailCurrentUser() }}</h4>
     </div>
-    <img
-      class="w-20 h-20 object-cover rounded-full"
-      src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-      alt="Soufiane FADIL"
-    />
+    <input type="file" class="hidden" (change)="onSelect($event)" #fileUpload />
+    <div class="relative" (click)="fileUpload.click()" id="teste">
+      <img
+        class="w-20 h-20 object-cover rounded-full"
+        [src]="imgUrl"
+        alt="avatar"
+      />
+      <div
+        class="flex flex-col justify-center items-center w-20 h-20 absolute bg-white/50 bottom-0 cursor-pointer rounded-full hidden"
+      >
+        <mat-icon *ngIf="!load">photo_camera</mat-icon>
+        <mat-spinner *ngIf="load" class="!w-5 !h-5"></mat-spinner>
+      </div>
+    </div>
   </div>
 
   <mat-divider></mat-divider>
@@ -54,7 +63,7 @@
   </mat-list-item>
 
   <mat-list-item>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/contacts">
+    <a mat-list-item routerLinkActive="list-item-active" (click)="logout()">
       <mat-icon class="!align-middle mr-3">exit_to_app</mat-icon>
       Sair
     </a>
