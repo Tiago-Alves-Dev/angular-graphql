@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user.service';
 import { Component, OnInit, Injector } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AbstractComponent } from 'src/app/core/abstract.component';
@@ -14,7 +15,11 @@ export class RegisterComponent extends AbstractComponent implements OnInit {
   public hide: boolean = true;
   private user: UserDto = {} as UserDto;
 
-  constructor(injector: Injector, private formBuilder: FormBuilder) {
+  constructor(
+    injector: Injector,
+    private formBuilder: FormBuilder,
+    private readonly userService: UserService
+  ) {
     super(injector);
     this.setupForm();
   }
@@ -29,9 +34,6 @@ export class RegisterComponent extends AbstractComponent implements OnInit {
       confirmPassword: ['', [Validators.required]],
       phone: ['', [Validators.required]],
     });
-    // this.formGroup.valueChanges.subscribe((value) => {
-    //   this.user = Object.assign(this.user, value);
-    // });
   }
 
   isFieldErrorsRequired(field: string, name: string): any {
@@ -54,26 +56,26 @@ export class RegisterComponent extends AbstractComponent implements OnInit {
   onSubmit(): void {
     if (this.formGroup.valid) {
       if (this.verifyPassword()) {
-        this.alertService.success('sucesso');
+        this.load = true;
         let value = this.formGroup.getRawValue();
         delete value.confirmPassword;
-        this.user = Object.assign(this.user, value);
-        console.log(this.user);
 
-        this.load = true;
+        this.user = Object.assign(this.user, value);
+
+        this.userService.createUser(this.user).subscribe({
+          next: (res) => {
+            if (res.data) {
+              this.alertService.success();
+              this.load = false;
+              this.router.navigate(['/login']);
+            }
+            if (res.errors) {
+              this.alertService.error(res.errors[0].message);
+              this.load = false;
+            }
+          },
+        });
       }
-      // const email = this.formGroup.value.email.trim();
-      // const password = this.formGroup.value.password;
-      // this.authenticationService.login(email, password).subscribe({
-      //   next:async (user: User) => {
-      //     await this.delay(1000)
-      //     this.load = false;
-      //     window.location.href = this.returnUrl;
-      //   },
-      //   error:(error)=>{
-      //     this.load = false;
-      //   }
-      // });
     }
   }
 }

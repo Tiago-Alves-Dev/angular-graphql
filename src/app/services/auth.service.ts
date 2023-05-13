@@ -17,8 +17,8 @@ export class AuthService {
     password: string;
   }): Observable<ApolloQueryResult<PayloadDto>> {
     return this.apollo
-      .query({
-        query: SIGN_IN,
+      .mutate({
+        mutation: SIGN_IN,
         variables: {
           data,
         },

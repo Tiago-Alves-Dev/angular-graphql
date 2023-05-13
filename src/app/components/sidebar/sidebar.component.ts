@@ -60,7 +60,7 @@ export class SidebarComponent extends AbstractComponent implements OnInit {
               .subscribe({
                 next: (res) => {
                   if (res.data) {
-                    this.alertService.success('sucesso');
+                    this.alertService.success();
                     this.load = false;
                     this.imgUrl = snapshot.url;
                   }

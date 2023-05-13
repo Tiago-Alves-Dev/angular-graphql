@@ -55,7 +55,7 @@ export class LoginComponent extends AbstractComponent implements OnInit {
         .subscribe({
           next: async (res) => {
             if (res.data) {
-              this.alertService.success('sucesso');
+              this.alertService.success();
               await this.delay(1000);
               this.load = false;
               window.location.href = this.returnUrl;

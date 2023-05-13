@@ -14,8 +14,8 @@ export class UserService {
 
   createUser(data: UserDto): Observable<ApolloQueryResult<any>> {
     return this.apollo
-      .query({
-        query: USER_CREATE,
+      .mutate({
+        mutation: USER_CREATE,
         variables: {
           data,
         },
@@ -28,8 +28,8 @@ export class UserService {
     data: UserDto
   ): Observable<ApolloQueryResult<any>> {
     return this.apollo
-      .query({
-        query: USER_UPDATE,
+      .mutate({
+        mutation: USER_UPDATE,
         variables: {
           userId,
           data,
