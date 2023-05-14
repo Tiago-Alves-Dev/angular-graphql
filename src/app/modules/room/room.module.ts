@@ -4,14 +4,16 @@ import { ReportRoomComponent } from './report-room/report-room.component';
 import { RoomComponent } from './room.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { RouterModule } from '@angular/router';
-import { DialogCreateOrUpdateRoomComponent } from './list-room/createOrUpdate-room/createOrUpdate-room.component';
+import { DialogFormRoomComponent } from './list-room/form-room/form-room.component';
+import { ModalDeleteRoomComponent } from './list-room/modal-delete-room/modal-delete-room.component';
 
 @NgModule({
   declarations: [
     ListRoomComponent,
     ReportRoomComponent,
     RoomComponent,
-    DialogCreateOrUpdateRoomComponent,
+    DialogFormRoomComponent,
+    ModalDeleteRoomComponent,
   ],
   imports: [
     RouterModule.forChild([

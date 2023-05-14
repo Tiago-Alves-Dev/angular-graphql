@@ -12,7 +12,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AbstractComponent } from 'src/app/core/abstract.component';
 import { RoomDto } from 'src/app/dtos/room.dto';
 import { RoomService } from 'src/app/services/room.service';
-import { DialogCreateOrUpdateRoomComponent } from './createOrUpdate-room/createOrUpdate-room.component';
+import { DialogFormRoomComponent } from './form-room/form-room.component';
+import { ModalDeleteRoomComponent } from './modal-delete-room/modal-delete-room.component';
 
 @Component({
   selector: 'app-create-room',
@@ -46,14 +47,13 @@ export class ListRoomComponent
   }
 
   ngAfterViewInit(): void {
-    this.getRoom();
+    this.getRooms();
   }
 
-  private getRoom() {
+  private getRooms() {
     this.roomService.getAllRooms().subscribe({
       next: (res) => {
         if (res.data) {
-          this.alertService.success();
           this.rooms = res.data.rooms;
           this.dataSource = new MatTableDataSource(this.rooms);
           this.dataSource.paginator = this.paginator;
@@ -63,10 +63,13 @@ export class ListRoomComponent
           this.alertService.error(res.errors[0].message);
         }
       },
+      error: (err) => {
+        this.alertService.error('Erro interno');
+      }
     });
   }
 
-  applyFilter(event: Event) {
+  public applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -75,18 +78,25 @@ export class ListRoomComponent
     }
   }
 
-  teste(ele: any) {
-    console.log(ele);
-  }
-
-  openDialog(): void {
-    const dialogRef = this.dialog.open(DialogCreateOrUpdateRoomComponent, {
-      data: { name: 'teste', animal: 'animal' },
+  public openDialogForm(data?: RoomDto): void {
+    const dialogRef = this.dialog.open(DialogFormRoomComponent, {
+      data: data,
+      width: '800px',
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-      console.log(result);
+    dialogRef.afterClosed().subscribe(() => {
+      this.getRooms();
+    });
+  }
+
+  public openDialogDelete(data?: RoomDto): void {
+    const dialogRef = this.dialog.open(ModalDeleteRoomComponent, {
+      data: data,
+      width: '600px',
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.getRooms();
     });
   }
 }

@@ -1,0 +1,104 @@
+<h1 mat-dialog-title>{{ title }} Sala</h1>
+<div mat-dialog-content>
+  <form class="text-left" [formGroup]="formGroup">
+    <h3><b>Por favor, preencha os campos abaixo</b></h3>
+
+    <div class="my-5">
+      <p>Imagem</p>
+      <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center">
+        <div class="text-right" *ngIf="imgRoomUrl" fxFlex="30">
+          <img [src]="imgRoomUrl" alt="ImagemTurma" />
+          <button mat-fab matTooltip="Remover imagem" color="warn" class="!w-8 !h-8 mt-3" (click)="deleteFile()">
+            <mat-icon class="!w-6 !h-6">delete</mat-icon>
+          </button>
+        </div>
+        <div class="flex items-center justify-center w-full" fxFlex="70">
+          <label
+            for="dropzone-file"
+            class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+          >
+            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+              <svg
+                *ngIf="!load"
+                aria-hidden="true"
+                class="w-10 h-10 mb-3 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                ></path>
+              </svg>
+              <mat-spinner *ngIf="load"></mat-spinner>
+              <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                <span class="font-semibold">Clique para carregar </span> ou arraste e solte
+              </p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG (MAX. 800x400px)</p>
+            </div>
+            <input id="dropzone-file" type="file" (change)="onSelect($event)" class="hidden" />
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center">
+      <mat-form-field [className]="'block'" fxFlex="90" appearance="fill" class="mb-2">
+        <mat-label>Nome da turma</mat-label>
+        <input #name matInput placeholder="Digite o nome da turma" formControlName="name" required />
+        <mat-error *ngIf="!name.value">{{ isFieldErrorsRequired('name', 'Nome') }}</mat-error>
+      </mat-form-field>
+
+      <section fxFlex="10">
+        <mat-checkbox color="primary" formControlName="isActive" class="example-margin">Ativo</mat-checkbox>
+      </section>
+    </div>
+
+    <mat-form-field [className]="'block'" appearance="fill" class="mb-2">
+      <mat-label>Descrição da Turma</mat-label>
+      <textarea
+        matInput
+        cdkTextareaAutosize
+        #description
+        placeholder="Digite seu email"
+        formControlName="description"
+        required
+        cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="5"
+      >
+      </textarea>
+      <mat-error *ngIf="!description.value">{{ isFieldErrorsRequired('description', 'Descrição') }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field [className]="'block'" appearance="fill" class="mb-2">
+      <mat-label>Periodo</mat-label>
+      <mat-select #period formControlName="period" required>
+        <mat-option *ngFor="let period of selectedperiodRoom" [value]="period.value">
+          {{ period.viewValue }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="!period.value">{{ isFieldErrorsRequired('period', 'Periodo') }}</mat-error>
+    </mat-form-field>
+
+    <div fxLayout="row" fxLayoutGap="20px">
+      <mat-form-field [className]="'block '" fxFlex="50" appearance="fill" class="mb-2">
+        <mat-label>Hora que inicia a turma</mat-label>
+        <input #hourStart matInput formControlName="hourStart" type="time" />
+      </mat-form-field>
+
+      <mat-form-field [className]="'block'" fxFlex="50" appearance="fill" class="mb-2">
+        <mat-label>Hora que termina a turma</mat-label>
+        <input #hourEnd matInput formControlName="hourEnd" type="time" />
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Fechar</button>
+  <button mat-button mat-raised-button color="primary" [disabled]="load" (click)="onSubmit()">{{ title }}</button>
+  <mat-progress-bar *ngIf="load" class="mt-5" mode="indeterminate"></mat-progress-bar>
+</div>

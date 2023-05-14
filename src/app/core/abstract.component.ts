@@ -62,6 +62,10 @@ export abstract class AbstractComponent implements OnDestroy {
     return UtilHelper.getUserImage(user ? user : this.getCurrentUser().user);
   }
 
+  protected getImage(entity: any, field: string): string {
+    return UtilHelper.getImage(entity, field);
+  }
+
   protected getParam(key: string): any {
     let result = null;
     this.route.params.forEach((params: Params) => (result = params[key]));

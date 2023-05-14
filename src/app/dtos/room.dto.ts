@@ -10,6 +10,6 @@ export interface RoomDto extends AuditDto {
   period: RomPeriodEnum;
   hourStart?: string;
   hourEnd?: string;
-  isActive: boolean;
+  isActive?: boolean;
   students?: StudentDto[];
 }
