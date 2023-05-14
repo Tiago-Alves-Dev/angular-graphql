@@ -4,10 +4,10 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AlertService } from '../services/alert.service';
 import { Constants } from '../config/constants';
-import { UserDto } from '../dtos/user.dto';
-import { PayloadDto } from '../dtos/payload.dto';
+import { PayloadDto } from '../shared/dtos/payload.dto';
 import { FirebaseService } from '../services/storage/firebase/firebase.service';
 import { UtilHelper } from './util.helper';
+import { UserDto } from '../shared/dtos/user.dto';
 
 @Injectable()
 export abstract class AbstractComponent implements OnDestroy {
@@ -31,9 +31,7 @@ export abstract class AbstractComponent implements OnDestroy {
   }
 
   protected getCurrentUser(): PayloadDto {
-    const currentUser = JSON.parse(
-      localStorage?.getItem(Constants.currentUser) || '{}'
-    ) as PayloadDto;
+    const currentUser = JSON.parse(localStorage?.getItem(Constants.currentUser) || '{}') as PayloadDto;
     return currentUser ? currentUser : ({} as PayloadDto);
   }
 

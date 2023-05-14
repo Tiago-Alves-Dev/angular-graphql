@@ -1,11 +1,11 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { NavigationEnd } from '@angular/router';
 import { AbstractComponent } from 'src/app/core/abstract.component';
-import { UserDto } from 'src/app/dtos/user.dto';
-import { UploadTypeEnum } from 'src/app/enums/upload.type.enum';
+import { UploadTypeEnum } from 'src/app/shared/enums/upload.type.enum';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { v4 as uuid } from 'uuid';
+import { UserDto } from 'src/app/shared/dtos/user.dto';
 
 @Component({
   selector: 'app-sidebar',
@@ -21,7 +21,7 @@ export class SidebarComponent extends AbstractComponent implements OnInit {
   constructor(
     injector: Injector,
     private readonly authService: AuthService,
-    private readonly userService: UserService
+    private readonly userService: UserService,
   ) {
     super(injector);
 
@@ -39,9 +39,7 @@ export class SidebarComponent extends AbstractComponent implements OnInit {
       this.firebaseService.deleteFile(this.imgUrl).then();
     }
 
-    let file0: File = event.addedFiles
-      ? event.addedFiles[0]
-      : event.target.files[0];
+    let file0: File = event.addedFiles ? event.addedFiles[0] : event.target.files[0];
     let name: string = file0.name;
     let extension: string = name.substring(name.lastIndexOf('.'), name.length);
 
@@ -55,21 +53,19 @@ export class SidebarComponent extends AbstractComponent implements OnInit {
           .uploadFile(file0, filename, UploadTypeEnum.USER)
           .then((snapshot: { url: string; urlSafe: string }) => {
             this.user.image = snapshot.url;
-            this.userService
-              .updateUser(this.getIdCurrentUser(), this.user)
-              .subscribe({
-                next: (res) => {
-                  if (res.data) {
-                    this.alertService.success();
-                    this.load = false;
-                    this.imgUrl = snapshot.url;
-                  }
-                  if (res.errors) {
-                    this.alertService.error(res.errors[0].message);
-                    this.load = false;
-                  }
-                },
-              });
+            this.userService.updateUser(this.getIdCurrentUser(), this.user).subscribe({
+              next: (res) => {
+                if (res.data) {
+                  this.alertService.success();
+                  this.load = false;
+                  this.imgUrl = snapshot.url;
+                }
+                if (res.errors) {
+                  this.alertService.error(res.errors[0].message);
+                  this.load = false;
+                }
+              },
+            });
           });
       }
     };

@@ -18,15 +18,42 @@
         />
       </svg>
     </div>
-    <h1 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Deletar {{ data.name }}</h1>
+    <h2 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Deletar {{ data.name }}</h2>
   </div>
 </div>
 <div mat-dialog-content>
-  <p class="text-sm text-gray-500">Certeza que deseja excluir a turma {{ data.name }} - {{ data.period }}</p>
+  <p class="text-sm text-gray-500" *ngIf="studentsExists">
+    Turma
+    <span class="font-semibold text-red-500"
+      >{{ data.name }} -
+      <span *ngIf="data.period === 'MORNING'">Manhã</span>
+      <span *ngIf="data.period === 'AFTERNOON'">Tarde</span>
+      <span *ngIf="data.period === 'NIGHT'">Noite</span>
+    </span>
+    Não pode ser excluida pois existe <span class="text-blue-500">Alunos</span> vinculados a mesma!
+  </p>
+  <p class="text-sm text-gray-500" *ngIf="!studentsExists">
+    Certeza que deseja excluir a turma
+    <span class="font-semibold text-red-500"
+      >{{ data.name }} -
+      <span *ngIf="data.period === 'MORNING'">Manhã</span>
+      <span *ngIf="data.period === 'AFTERNOON'">Tarde</span>
+      <span *ngIf="data.period === 'NIGHT'">Noite</span>
+    </span>
+    ?
+  </p>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Fechar</button>
-  <button mat-button cdkFocusInitial mat-raised-button color="warn" [disabled]="load" (click)="deleteRoom()">
+  <button
+    *ngIf="!studentsExists"
+    mat-button
+    cdkFocusInitial
+    mat-raised-button
+    color="warn"
+    [disabled]="load"
+    (click)="deleteRoom()"
+  >
     Deletar
   </button>
   <mat-progress-bar *ngIf="load" class="mt-5" mode="indeterminate"></mat-progress-bar>

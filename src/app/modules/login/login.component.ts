@@ -1,7 +1,7 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AbstractComponent } from 'src/app/core/abstract.component';
-import { PayloadDto } from 'src/app/dtos/payload.dto';
+import { PayloadDto } from 'src/app/shared/dtos/payload.dto';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -15,11 +15,7 @@ export class LoginComponent extends AbstractComponent implements OnInit {
   private returnUrl!: string;
   public hide: boolean = true;
 
-  constructor(
-    injector: Injector,
-    private formBuilder: FormBuilder,
-    private readonly authService: AuthService
-  ) {
+  constructor(injector: Injector, private formBuilder: FormBuilder, private readonly authService: AuthService) {
     super(injector);
     this.setupForm();
   }

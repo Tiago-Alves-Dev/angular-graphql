@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StorageInterface } from '../storage.interface';
-import { UploadTypeEnum } from 'src/app/enums/upload.type.enum';
+import { UploadTypeEnum } from 'src/app/shared/enums/upload.type.enum';
 import { environment } from 'src/environments/environment';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -9,16 +9,9 @@ import { DomSanitizer } from '@angular/platform-browser';
   providedIn: 'root',
 })
 export class FirebaseService implements StorageInterface {
-  constructor(
-    private _sanitizer: DomSanitizer,
-    private angularFireStorage: AngularFireStorage
-  ) {}
+  constructor(private _sanitizer: DomSanitizer, private angularFireStorage: AngularFireStorage) {}
 
-  async uploadFile(
-    file: File,
-    filename: string,
-    uploadTypeEnum: UploadTypeEnum
-  ): Promise<any> {
+  async uploadFile(file: File, filename: string, uploadTypeEnum: UploadTypeEnum): Promise<any> {
     try {
       const storage = this.angularFireStorage.storage;
       const storageRef = storage.ref();
@@ -51,9 +44,7 @@ export class FirebaseService implements StorageInterface {
   deleteFile(storageUrl: string) {
     return new Promise<any>((resolve, reject) => {
       try {
-        if (
-          storageUrl.indexOf(environment.firebaseConfig.storageBucket) !== -1
-        ) {
+        if (storageUrl.indexOf(environment.firebaseConfig.storageBucket) !== -1) {
           const storage = this.angularFireStorage.storage;
           const deleteTask = storage.refFromURL(storageUrl);
           resolve(deleteTask.delete());

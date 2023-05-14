@@ -1,4 +1,4 @@
-import { AuditDto } from '../shared/dtos/audit.dto';
+import { AuditDto } from './audit.dto';
 
 export interface UserDto extends AuditDto {
   userId?: string;

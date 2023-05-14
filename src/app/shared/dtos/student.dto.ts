@@ -1,4 +1,4 @@
-import { AuditDto } from '../shared/dtos/audit.dto';
+import { AuditDto } from './audit.dto';
 import { RoomDto } from './room.dto';
 
 export interface StudentDto extends AuditDto {

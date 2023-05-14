@@ -1,8 +1,8 @@
 import { Component, Inject, Injector, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AbstractComponent } from 'src/app/core/abstract.component';
-import { RoomDto } from 'src/app/dtos/room.dto';
 import { RoomService } from 'src/app/services/room.service';
+import { RoomDto } from 'src/app/shared/dtos/room.dto';
 
 @Component({
   selector: 'app-modal-delete-room',
@@ -11,6 +11,7 @@ import { RoomService } from 'src/app/services/room.service';
 })
 export class ModalDeleteRoomComponent extends AbstractComponent implements OnInit {
   public load: boolean = false;
+  public studentsExists: boolean = false;
 
   constructor(
     injector: Injector,
@@ -21,9 +22,17 @@ export class ModalDeleteRoomComponent extends AbstractComponent implements OnIni
     super(injector);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.data.students) {
+      if (this.data.students.length > 0) {
+        this.studentsExists = true;
+      } else {
+        this.studentsExists = false;
+      }
+    }
+  }
 
-  onNoClick(): void {
+  public onNoClick(): void {
     this.dialogRef.close();
   }
 

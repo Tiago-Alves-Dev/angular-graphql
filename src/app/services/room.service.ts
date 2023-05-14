@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { ApolloQueryResult } from '@apollo/client/core';
 import { Observable, map } from 'rxjs';
-import { RoomDto } from '../dtos/room.dto';
-import { GET_ALL_ROOMS } from '../queries/getAllRoom.query';
-import { GET_ROOMS } from '../queries/getRoom.query';
-import { ROOM_CREATE } from '../queries/createRoom.query';
-import { ROOM_UPDATE } from '../queries/updateRoom.query';
-import { ROOM_REMOVE } from '../queries/removeRoom.query';
+import { GET_ALL_ROOMS } from '../shared/queries/getAllRoom.query';
+import { GET_ROOMS } from '../shared/queries/getRoom.query';
+import { ROOM_CREATE } from '../shared/queries/createRoom.query';
+import { ROOM_UPDATE } from '../shared/queries/updateRoom.query';
+import { ROOM_REMOVE } from '../shared/queries/removeRoom.query';
+import { RoomDto } from '../shared/dtos/room.dto';
 
 @Injectable({
   providedIn: 'root',

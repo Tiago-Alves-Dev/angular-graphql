@@ -1,4 +1,4 @@
-import { UserDto } from '../dtos/user.dto';
+import { UserDto } from '../shared/dtos/user.dto';
 
 export class UtilHelper {
   private static instance: UtilHelper;

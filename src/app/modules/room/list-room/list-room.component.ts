@@ -1,48 +1,28 @@
-import {
-  AfterViewInit,
-  Component,
-  Injector,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AbstractComponent } from 'src/app/core/abstract.component';
-import { RoomDto } from 'src/app/dtos/room.dto';
 import { RoomService } from 'src/app/services/room.service';
 import { DialogFormRoomComponent } from './form-room/form-room.component';
 import { ModalDeleteRoomComponent } from './modal-delete-room/modal-delete-room.component';
+import { RoomDto } from 'src/app/shared/dtos/room.dto';
 
 @Component({
   selector: 'app-create-room',
   templateUrl: './list-room.component.html',
   styleUrls: ['./list-room.component.scss'],
 })
-export class ListRoomComponent
-  extends AbstractComponent
-  implements AfterViewInit
-{
-  public displayedColumns: string[] = [
-    'image',
-    'roomId',
-    'name',
-    'period',
-    'isActive',
-    'action',
-  ];
+export class ListRoomComponent extends AbstractComponent implements AfterViewInit {
+  public displayedColumns: string[] = ['image', 'roomId', 'name', 'createdAt', 'period', 'isActive', 'action'];
   public rooms!: RoomDto[];
   public dataSource!: MatTableDataSource<RoomDto>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(
-    injector: Injector,
-    private readonly roomService: RoomService,
-    public dialog: MatDialog
-  ) {
+  constructor(injector: Injector, private readonly roomService: RoomService, public dialog: MatDialog) {
     super(injector);
   }
 
@@ -65,7 +45,7 @@ export class ListRoomComponent
       },
       error: (err) => {
         this.alertService.error('Erro interno');
-      }
+      },
     });
   }
 

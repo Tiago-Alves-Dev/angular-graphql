@@ -2,11 +2,11 @@ import { Component, Inject, Injector, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AbstractComponent } from 'src/app/core/abstract.component';
-import { RoomDto } from 'src/app/dtos/room.dto';
-import { UploadTypeEnum } from 'src/app/enums/upload.type.enum';
+import { UploadTypeEnum } from 'src/app/shared/enums/upload.type.enum';
 import { RoomService } from 'src/app/services/room.service';
 import { RomPeriodEnum } from 'src/app/shared/enums/room-period.enum';
 import { v4 as uuid } from 'uuid';
+import { RoomDto } from 'src/app/shared/dtos/room.dto';
 
 interface Select {
   value: string;

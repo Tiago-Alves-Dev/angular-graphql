@@ -2,7 +2,7 @@ import { UserService } from './../../services/user.service';
 import { Component, OnInit, Injector } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AbstractComponent } from 'src/app/core/abstract.component';
-import { UserDto } from 'src/app/dtos/user.dto';
+import { UserDto } from 'src/app/shared/dtos/user.dto';
 
 @Component({
   selector: 'app-register',
@@ -15,11 +15,7 @@ export class RegisterComponent extends AbstractComponent implements OnInit {
   public hide: boolean = true;
   private user: UserDto = {} as UserDto;
 
-  constructor(
-    injector: Injector,
-    private formBuilder: FormBuilder,
-    private readonly userService: UserService
-  ) {
+  constructor(injector: Injector, private formBuilder: FormBuilder, private readonly userService: UserService) {
     super(injector);
     this.setupForm();
   }
@@ -44,9 +40,7 @@ export class RegisterComponent extends AbstractComponent implements OnInit {
   }
 
   verifyPassword() {
-    if (
-      this.formGroup.value.confirmPassword !== this.formGroup.value.password
-    ) {
+    if (this.formGroup.value.confirmPassword !== this.formGroup.value.password) {
       this.alertService.error('Senha não conferem');
       return false;
     }

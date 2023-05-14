@@ -12,6 +12,9 @@ export const GET_ALL_ROOMS = gql`
       hourStart
       isActive
       createdAt
+      students {
+        name
+      }
     }
   }
 `;

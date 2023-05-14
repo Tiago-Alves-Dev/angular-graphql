@@ -1,5 +1,5 @@
-import { AuditDto } from '../shared/dtos/audit.dto';
-import { RomPeriodEnum } from '../shared/enums/room-period.enum';
+import { RomPeriodEnum } from '../enums/room-period.enum';
+import { AuditDto } from './audit.dto';
 import { StudentDto } from './student.dto';
 
 export interface RoomDto extends AuditDto {
