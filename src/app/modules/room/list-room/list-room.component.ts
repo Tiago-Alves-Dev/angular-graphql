@@ -8,6 +8,8 @@ import { RoomService } from 'src/app/services/room.service';
 import { DialogFormRoomComponent } from './form-room/form-room.component';
 import { ModalDeleteRoomComponent } from './modal-delete-room/modal-delete-room.component';
 import { RoomDto } from 'src/app/shared/dtos/room.dto';
+import { merge, Observable, of as observableOf } from 'rxjs';
+import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-room',

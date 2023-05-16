@@ -1,0 +1,20 @@
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+.element-row td {
+  border-bottom-width: 0;
+}
+
+::ng-deep .mat-column-createdAt {
+  min-width: 120px;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}

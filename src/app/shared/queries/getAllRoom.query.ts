@@ -14,6 +14,9 @@ export const GET_ALL_ROOMS = gql`
       createdAt
       students {
         name
+        registration
+        phone
+        cpf
       }
     }
   }

@@ -29,6 +29,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { PhonePipe } from './pipes/phone.pipe';
+import { CpfPipe } from './pipes/cpf.pipe';
+import { MatSortModule } from '@angular/material/sort';
 
 const MATERIAL = [
   MatSidenavModule,
@@ -54,10 +57,11 @@ const MATERIAL = [
   MatDialogModule,
   MatTooltipModule,
   MatCheckboxModule,
+  MatSortModule,
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [PhonePipe, CpfPipe],
   imports: [
     CommonModule,
     FormsModule,
@@ -75,6 +79,8 @@ const MATERIAL = [
     HighchartsChartModule,
     RouterModule,
     NgxMaskModule,
+    PhonePipe,
+    CpfPipe,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

@@ -6,11 +6,7 @@
     </div>
     <input type="file" class="hidden" (change)="onSelect($event)" #fileUpload />
     <div class="relative" (click)="fileUpload.click()" id="teste">
-      <img
-        class="w-20 h-20 object-cover rounded-full"
-        [src]="imgUrl"
-        alt="avatar"
-      />
+      <img class="w-20 h-20 object-cover rounded-full" [src]="imgUrl" alt="avatar" />
       <div
         class="flex flex-col justify-center items-center w-20 h-20 absolute bg-white/50 bottom-0 cursor-pointer rounded-full hidden"
       >
@@ -25,9 +21,7 @@
   <h2 matSubheader class="!my-2">Paginas</h2>
 
   <mat-list-item>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/home"
-      >Dashboard</a
-    >
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/home">Dashboard</a>
   </mat-list-item>
 
   <app-nav-list [expandable]="true" [title]="'Aluno'">
@@ -36,8 +30,8 @@
     <mat-divider></mat-divider>
   </app-nav-list>
 
-  <app-nav-list [expandable]="true" [title]="'Sala'">
-    <mat-list-item routerLink="/room">Lista de Salas</mat-list-item>
+  <app-nav-list [expandable]="true" [title]="'Turma'">
+    <mat-list-item routerLink="/room">Lista de Turmas</mat-list-item>
     <mat-list-item routerLink="/room/report">Relatório</mat-list-item>
     <mat-divider></mat-divider>
   </app-nav-list>

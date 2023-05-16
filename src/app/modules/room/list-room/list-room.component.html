@@ -1,6 +1,6 @@
 <mat-form-field>
   <mat-label>Filtrar</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Turma..." #input />
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Nome da Turma, ID..." #input />
 </mat-form-field>
 
 <div class="text-right">
@@ -10,10 +10,18 @@
 </div>
 
 <div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource" matSort>
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    matSort
+    matSortActive="createdAt"
+    matSortDisableClear
+    matSortDirection="desc"
+    class="w-full"
+  >
     <!-- Image Column -->
     <ng-container matColumnDef="image">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Imagem</th>
+      <th mat-header-cell *matHeaderCellDef>Imagem</th>
       <td mat-cell *matCellDef="let row">
         <img
           class="w-24 h-24 border object-cover rounded-md m-3 p-3"
@@ -25,13 +33,13 @@
 
     <!-- RoomId Column -->
     <ng-container matColumnDef="roomId">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+      <th mat-header-cell *matHeaderCellDef>ID</th>
       <td mat-cell *matCellDef="let row">{{ row.roomId }}</td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
+      <th mat-header-cell *matHeaderCellDef>Nome</th>
       <td mat-cell *matCellDef="let row">{{ row.name }}</td>
     </ng-container>
 
@@ -43,7 +51,7 @@
 
     <!-- Period Column -->
     <ng-container matColumnDef="period">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Periodo</th>
+      <th mat-header-cell *matHeaderCellDef>Periodo</th>
       <td mat-cell *matCellDef="let row">
         <span *ngIf="row.period === 'MORNING'">Manhã</span>
         <span *ngIf="row.period === 'AFTERNOON'">Tarde</span>
@@ -53,7 +61,7 @@
 
     <!-- isActive Column -->
     <ng-container matColumnDef="isActive">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+      <th mat-header-cell *matHeaderCellDef>Status</th>
       <td mat-cell *matCellDef="let row">
         {{ row.isActive ? 'Ativo' : 'Inativo' }}
       </td>
@@ -61,7 +69,7 @@
 
     <!-- Action Column -->
     <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Ação</th>
+      <th mat-header-cell *matHeaderCellDef>Ação</th>
       <td mat-cell *matCellDef="let row">
         <div class="flex gap-5">
           <mat-icon class="cursor-pointer text-red-500" (click)="openDialogDelete(row)">restore_from_trash</mat-icon>
