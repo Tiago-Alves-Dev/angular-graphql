@@ -4,8 +4,8 @@
 </mat-form-field>
 
 <div class="flex gap-5 justify-end my-3">
-  <button mat-raised-button>BAIXAR PDF <mat-icon>picture_as_pdf</mat-icon></button>
-  <button mat-raised-button class="!bg-green-500 !text-white">
+  <button mat-raised-button (click)="exportPDF()">BAIXAR PDF <mat-icon>picture_as_pdf</mat-icon></button>
+  <button mat-raised-button class="!bg-green-500 !text-white" (click)="exportExcel()">
     BAIXAR PLANILHA <mat-icon> vertical_align_bottom</mat-icon>
   </button>
 </div>
@@ -20,6 +20,7 @@
     matSortDisableClear
     matSortDirection="desc"
     class="mat-elevation-z8 w-full"
+    id="excel-table"
   >
     <!-- RoomID Column -->
     <ng-container matColumnDef="roomId">

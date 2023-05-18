@@ -3,7 +3,11 @@
   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Nome da Turma, ID..." #input />
 </mat-form-field>
 
-<div class="text-right">
+<div class="flex gap-5 justify-end my-3">
+  <button mat-raised-button (click)="exportPDF()">BAIXAR PDF <mat-icon>picture_as_pdf</mat-icon></button>
+  <button mat-raised-button class="!bg-green-500 !text-white" (click)="exportExcel()">
+    BAIXAR PLANILHA <mat-icon> vertical_align_bottom</mat-icon>
+  </button>
   <button mat-raised-button class="mb-3" color="primary" (click)="openDialogForm()">
     Adicionar <mat-icon>library_add</mat-icon>
   </button>
@@ -72,6 +76,7 @@
       <th mat-header-cell *matHeaderCellDef>Ação</th>
       <td mat-cell *matCellDef="let row">
         <div class="flex gap-5">
+          <mat-icon class="cursor-pointer" [routerLink]="['/room', row.roomId]">visibility</mat-icon>
           <mat-icon class="cursor-pointer text-red-500" (click)="openDialogDelete(row)">restore_from_trash</mat-icon>
           <mat-icon class="cursor-pointer text-blue-500" (click)="openDialogForm(row)">edit</mat-icon>
         </div>

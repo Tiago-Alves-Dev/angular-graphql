@@ -18,7 +18,18 @@ import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 })
 export class ListRoomComponent extends AbstractComponent implements AfterViewInit {
   public displayedColumns: string[] = ['image', 'roomId', 'name', 'createdAt', 'period', 'isActive', 'action'];
+  public columsExport: string[] = [
+    'ID',
+    'Nome',
+    'Descrição',
+    'Data de criação',
+    'Periodo',
+    'Hora início',
+    'Hora final',
+    'Status',
+  ];
   public rooms!: RoomDto[];
+  public roomsExport!: RoomDto[];
   public dataSource!: MatTableDataSource<RoomDto>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -37,6 +48,27 @@ export class ListRoomComponent extends AbstractComponent implements AfterViewIni
       next: (res) => {
         if (res.data) {
           this.rooms = res.data.rooms;
+          this.roomsExport = res.data.rooms.map((room: RoomDto) => {
+            let period: string = '';
+            room.period === 'MORNING'
+              ? (period = 'Manhã')
+              : room.period === 'AFTERNOON'
+              ? (period = 'Tarde')
+              : room.period === 'NIGHT'
+              ? (period = 'Noite')
+              : period;
+
+            return {
+              roomId: room.roomId,
+              name: room.name,
+              description: room.description,
+              createdAt: room.createdAt ? new Date(+room.createdAt).toLocaleDateString() : null,
+              period: period,
+              hourStart: room.hourStart,
+              hourEnd: room.hourEnd,
+              status: room.isActive ? 'Ativo' : 'Inativo',
+            };
+          });
           this.dataSource = new MatTableDataSource(this.rooms);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -80,5 +112,21 @@ export class ListRoomComponent extends AbstractComponent implements AfterViewIni
     dialogRef.afterClosed().subscribe(() => {
       this.getRooms();
     });
+  }
+
+  public exportExcel() {
+    this.excelService.exportAsExcelFile(
+      'Relatório de turmas',
+      '',
+      this.columsExport,
+      this.roomsExport,
+      null,
+      'relatorio-turmas',
+      'Turmas',
+    );
+  }
+
+  public exportPDF(): void {
+    this.generatePdfService.exportPDF([this.columsExport], this.roomsExport, 'Turmas');
   }
 }

@@ -7,6 +7,10 @@ import { AbstractComponent } from 'src/app/core/abstract.component';
 import { RoomService } from 'src/app/services/room.service';
 import { RoomDto } from 'src/app/shared/dtos/room.dto';
 
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import { StudentDto } from 'src/app/shared/dtos/student.dto';
+
 @Component({
   selector: 'app-report-room',
   templateUrl: './report-room.component.html',
@@ -21,7 +25,7 @@ import { RoomDto } from 'src/app/shared/dtos/room.dto';
 })
 export class ReportRoomComponent extends AbstractComponent implements OnInit {
   public dataSource!: MatTableDataSource<RoomDto>;
-  displayedColumns = [
+  public displayedColumns = [
     'roomId',
     'name',
     'description',
@@ -32,7 +36,18 @@ export class ReportRoomComponent extends AbstractComponent implements OnInit {
     'isActive',
     'expand',
   ];
-  expandedElement!: RoomDto | null;
+  public expandedElement!: RoomDto | null;
+  public columsExport: string[] = [
+    'ID',
+    'Nome',
+    'Descrição',
+    'Data de criação',
+    'Periodo',
+    'Hora início',
+    'Hora final',
+    'Estudantes',
+  ];
+  public roomsExport!: RoomDto[];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -52,6 +67,35 @@ export class ReportRoomComponent extends AbstractComponent implements OnInit {
           this.dataSource = new MatTableDataSource(res.data.rooms);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
+
+          this.roomsExport = res.data.rooms.map((room: RoomDto) => {
+            let period: string = '';
+            room.period === 'MORNING'
+              ? (period = 'Manhã')
+              : room.period === 'AFTERNOON'
+              ? (period = 'Tarde')
+              : room.period === 'NIGHT'
+              ? (period = 'Noite')
+              : period;
+
+            return {
+              roomId: room.roomId,
+              name: room.name,
+              description: room.description,
+              createdAt: room.createdAt ? new Date(+room.createdAt).toLocaleDateString() : null,
+              period: period,
+              hourStart: room.hourStart,
+              hourEnd: room.hourEnd,
+              students: room.students?.map((student) => {
+                return {
+                  nome: student.name,
+                  matricula: student.registration,
+                  celular: student.phone,
+                  cprf: student.cpf,
+                };
+              }),
+            };
+          });
         }
         if (res.errors) {
           this.alertService.error(res.errors[0].message);
@@ -70,5 +114,21 @@ export class ReportRoomComponent extends AbstractComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  public exportExcel() {
+    this.excelService.exportAsExcelFile(
+      'Relatório de turmas com estudantes',
+      '',
+      this.columsExport,
+      this.roomsExport,
+      null,
+      'relatorio-turmas-estudantes',
+      'Turmas',
+    );
+  }
+
+  public exportPDF(): void {
+    this.generatePdfService.exportPDF([this.columsExport], this.roomsExport, 'Turmas-estudantes');
   }
 }

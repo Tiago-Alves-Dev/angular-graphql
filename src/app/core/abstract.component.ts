@@ -8,6 +8,8 @@ import { PayloadDto } from '../shared/dtos/payload.dto';
 import { FirebaseService } from '../services/storage/firebase/firebase.service';
 import { UtilHelper } from './util.helper';
 import { UserDto } from '../shared/dtos/user.dto';
+import { ExcelService } from '../services/excel.service';
+import { GeneratePdfService } from '../services/generate-pdf.service';
 
 @Injectable()
 export abstract class AbstractComponent implements OnDestroy {
@@ -15,7 +17,9 @@ export abstract class AbstractComponent implements OnDestroy {
   protected router: Router;
   protected route: ActivatedRoute;
   protected alertService: AlertService;
+  protected excelService: ExcelService;
   protected firebaseService: FirebaseService;
+  protected generatePdfService: GeneratePdfService;
   protected subscriptions: Subscription = new Subscription();
 
   constructor(injector: Injector) {
@@ -24,6 +28,8 @@ export abstract class AbstractComponent implements OnDestroy {
     this.route = injector.get(ActivatedRoute);
     this.alertService = injector.get(AlertService);
     this.firebaseService = injector.get(FirebaseService);
+    this.excelService = injector.get(ExcelService);
+    this.generatePdfService = injector.get(GeneratePdfService);
   }
 
   ngOnDestroy(): void {
