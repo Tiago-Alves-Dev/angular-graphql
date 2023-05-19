@@ -1,0 +1,202 @@
+<h1 mat-dialog-title>{{ title }} Aluno</h1>
+<div mat-dialog-content>
+  <form class="text-left" [formGroup]="formGroup">
+    <h3><b>Por favor, preencha os campos abaixo</b></h3>
+
+    <div class="my-5">
+      <p>Foto</p>
+      <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center">
+        <div class="text-right" *ngIf="photoStudentUrl" fxFlex="30">
+          <img [src]="photoStudentUrl" alt="ImagemTurma" />
+          <button mat-fab matTooltip="Remover imagem" color="warn" class="!w-8 !h-8 mt-3" (click)="deleteFile()">
+            <mat-icon class="!w-6 !h-6">delete</mat-icon>
+          </button>
+        </div>
+        <div class="flex items-center justify-center w-full" fxFlex="70">
+          <label
+            for="dropzone-file"
+            class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+          >
+            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+              <svg
+                *ngIf="!load"
+                aria-hidden="true"
+                class="w-10 h-10 mb-3 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                ></path>
+              </svg>
+              <mat-spinner *ngIf="load"></mat-spinner>
+              <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                <span class="font-semibold">Clique para carregar </span> ou arraste e solte
+              </p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG (MAX. 800x400px)</p>
+            </div>
+            <input id="dropzone-file" type="file" (change)="onSelect($event)" class="hidden" />
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center">
+      <mat-form-field [className]="'block'" fxFlex="90" appearance="fill" class="mb-2">
+        <mat-label>Nome completo</mat-label>
+        <input #name matInput placeholder="Digite o nome do aluno" formControlName="name" required />
+        <mat-error *ngIf="!name.value">{{ isFieldErrorsRequired('name', 'Nome') }}</mat-error>
+      </mat-form-field>
+
+      <section fxFlex="10">
+        <mat-checkbox color="primary" formControlName="isActive" class="example-margin">Ativo</mat-checkbox>
+      </section>
+    </div>
+
+    <mat-form-field [className]="'block '" appearance="fill" class="mb-2">
+      <mat-label>Matrícula</mat-label>
+      <input #registration matInput formControlName="registration" />
+      <mat-error *ngIf="!registration.value">{{ isFieldErrorsRequired('registration', 'Matrícula') }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field [className]="'block'" appearance="fill" class="mb-2">
+      <mat-label>Turma</mat-label>
+      <mat-select #period formControlName="roomId" required>
+        <mat-option *ngFor="let room of selectedRoom" [value]="room.value">
+          {{ room.viewValue }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="!period.value">{{ isFieldErrorsRequired('roomId', 'Turma') }}</mat-error>
+    </mat-form-field>
+
+    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center">
+      <mat-form-field [className]="'block'" fxFlex="50" appearance="fill" class="mb-2">
+        <mat-label>Idade</mat-label>
+        <input #age matInput formControlName="age" type="number" placeholder="Digite a idade do aluno" />
+        <mat-error *ngIf="!age.value">{{ isFieldErrorsRequired('age', 'Idade') }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field [className]="'block '" fxFlex="50" appearance="fill" class="mb-2">
+        <mat-label>Aniversário</mat-label>
+        <input #birth matInput formControlName="birth" [matDatepicker]="picker" />
+
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="!birth.value">{{ isFieldErrorsRequired('birth', 'Aniversário') }}</mat-error>
+      </mat-form-field>
+
+      <!-- <mat-form-field [className]="'block '" fxFlex="50" appearance="fill" class="mb-2">
+        <mat-label>Aniversário</mat-label>
+        <input
+          #birth
+          matInput
+          formControlName="birth"
+          type="date"
+          placeholder="Digite a data de aniversário do aluno"
+        />
+        <mat-error *ngIf="!birth.value">{{ isFieldErrorsRequired('birth', 'Aniversário') }}</mat-error>
+      </mat-form-field> -->
+    </div>
+
+    <mat-form-field [className]="'block '" appearance="fill" class="mb-2">
+      <mat-label>E-mail</mat-label>
+      <input #email matInput formControlName="email" type="email" placeholder="Digite o e-mail do aluno" />
+      <mat-error *ngIf="!email.value">{{ isFieldErrorsRequired('email', 'E-mail') }}</mat-error>
+    </mat-form-field>
+
+    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center">
+      <mat-form-field [className]="'block'" fxFlex="50" appearance="fill" class="mb-2">
+        <mat-label>Celular</mat-label>
+        <input
+          #phone
+          matInput
+          prefix="+55"
+          mask="(00) 00000-0000"
+          formControlName="phone"
+          placeholder="Digite o celular do aluno"
+        />
+        <mat-error *ngIf="!phone.value">{{ isFieldErrorsRequired('phone', 'Celular') }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field [className]="'block'" fxFlex="50" appearance="fill" class="mb-2">
+        <mat-label>CPF</mat-label>
+        <input #cpf matInput mask="000.000.000-00" formControlName="cpf" placeholder="Digite o CPF do aluno" />
+        <mat-error *ngIf="!cpf.value">{{ isFieldErrorsRequired('cpf', 'CPF') }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field [className]="'block '" appearance="fill" class="mb-2">
+      <mat-label>Nome da mãe</mat-label>
+      <input #mother matInput formControlName="mother" placeholder="Digite o nome da mãe do aluno" />
+      <mat-error *ngIf="!mother.value">{{ isFieldErrorsRequired('mother', 'Mãe') }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field [className]="'block '" appearance="fill" class="mb-2">
+      <mat-label>Nome do pai</mat-label>
+      <input #father matInput formControlName="father" placeholder="Digite o nome do pai do aluno" />
+      <mat-error *ngIf="!father.value">{{ isFieldErrorsRequired('father', 'Pai') }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field [className]="'block '" appearance="fill" class="mb-2">
+      <mat-label>CEP</mat-label>
+      <input
+        #zipcode
+        mask="00.000-000"
+        matInput
+        formControlName="zipcode"
+        placeholder="Digite o CEP do aluno"
+        (blur)="getCep(zipcode.value)"
+      />
+    </mat-form-field>
+
+    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center">
+      <mat-form-field [className]="'block '" fxFlex="40" appearance="fill" class="mb-2">
+        <mat-label>Endereço</mat-label>
+        <input #address matInput formControlName="address" placeholder="Digite o endereço do aluno" />
+      </mat-form-field>
+
+      <mat-form-field [className]="'block '" fxFlex="20" appearance="fill" class="mb-2">
+        <mat-label>Número</mat-label>
+        <input
+          #addressNumber
+          matInput
+          type="number"
+          formControlName="addressNumber"
+          placeholder="Digite o número do endereço"
+        />
+      </mat-form-field>
+
+      <mat-form-field [className]="'block '" fxFlex="40" appearance="fill" class="mb-2">
+        <mat-label>Complemento</mat-label>
+        <input
+          #addressComplement
+          matInput
+          formControlName="addressComplement"
+          placeholder="Digite o complemento do endereço"
+        />
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center">
+      <mat-form-field [className]="'block '" fxFlex="50" appearance="fill" class="mb-2">
+        <mat-label>Estado</mat-label>
+        <input #state matInput formControlName="state" placeholder="Digite a estado do Aluno" />
+      </mat-form-field>
+
+      <mat-form-field [className]="'block '" fxFlex="50" appearance="fill" class="mb-2">
+        <mat-label>Cidade</mat-label>
+        <input #city matInput formControlName="city" placeholder="Digite a cidade do Aluno" />
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Fechar</button>
+  <button mat-button mat-raised-button color="primary" [disabled]="load" (click)="onSubmit()">{{ title }}</button>
+  <mat-progress-bar *ngIf="load" class="mt-5" mode="indeterminate"></mat-progress-bar>
+</div>

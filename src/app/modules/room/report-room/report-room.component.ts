@@ -129,6 +129,6 @@ export class ReportRoomComponent extends AbstractComponent implements OnInit {
   }
 
   public exportPDF(): void {
-    this.generatePdfService.exportPDF([this.columsExport], this.roomsExport, 'Turmas-estudantes');
+    this.generatePdfService.exportPDF([this.columsExport], this.roomsExport, 'relatorio-turmas-estudantes');
   }
 }

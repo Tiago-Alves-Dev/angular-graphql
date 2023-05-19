@@ -24,6 +24,7 @@
     "@angular/router": "^16.0.0",
     "@apollo/client": "^3.7.14",
     "apollo-angular": "^4.2.1",
+    "axios": "^1.4.0",
     "exceljs": "^4.3.0",
     "file-saver": "^2.0.5",
     "firebase": "^9.21.0",

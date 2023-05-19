@@ -21,5 +21,6 @@ export interface StudentDto extends AuditDto {
   zipcode?: string;
   city?: string;
   state?: string;
+  isActive?: boolean;
   room?: RoomDto;
 }

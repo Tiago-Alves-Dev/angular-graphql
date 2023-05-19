@@ -18,12 +18,16 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'home', component: DashboardComponent },
-      { path: 'student', component: StudentComponent },
       // room
       {
         path: 'room',
-        loadChildren: () =>
-          import('../app/modules/room/room.module').then((m) => m.RoomModule),
+        loadChildren: () => import('../app/modules/room/room.module').then((m) => m.RoomModule),
+      },
+
+      // student
+      {
+        path: 'student',
+        loadChildren: () => import('../app/modules/student/student.module').then((m) => m.StudentModule),
       },
     ],
   },

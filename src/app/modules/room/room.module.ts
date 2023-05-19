@@ -6,7 +6,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { DialogFormRoomComponent } from './list-room/form-room/form-room.component';
 import { ModalDeleteRoomComponent } from './list-room/modal-delete-room/modal-delete-room.component';
-import { DetailsComponent } from './details/details.component';
+import { DetailsRoomComponent } from './details-room/details-room.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,7 @@ import { DetailsComponent } from './details/details.component';
     RoomComponent,
     DialogFormRoomComponent,
     ModalDeleteRoomComponent,
-    DetailsComponent,
+    DetailsRoomComponent,
   ],
   imports: [
     RouterModule.forChild([
@@ -38,7 +38,7 @@ import { DetailsComponent } from './details/details.component';
           },
           {
             path: ':id',
-            component: DetailsComponent,
+            component: DetailsRoomComponent,
           },
         ],
       },

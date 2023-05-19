@@ -23,7 +23,7 @@ export class RoomService {
       .pipe(map((res: any) => res));
   }
 
-  getRoom(roomId: string): Observable<ApolloQueryResult<RoomDto>> {
+  getRoom(roomId: string | undefined): Observable<ApolloQueryResult<any>> {
     return this.apollo
       .query({
         query: GET_ROOMS,

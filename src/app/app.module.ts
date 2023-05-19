@@ -21,7 +21,6 @@ import { environment } from 'src/environments/environment';
 
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { ComponentsModule } from './components/components.module';
-import { StudentComponent } from './modules/student/student.component';
 import { LoginComponent } from './modules/login/login.component';
 import { RegisterComponent } from './modules/register/register.component';
 import { JwtService } from './interceptors/jwt.service';
@@ -29,14 +28,7 @@ import { JwtService } from './interceptors/jwt.service';
 registerLocaleData(localePt, 'pt');
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AlertComponent,
-    DashboardComponent,
-    StudentComponent,
-    LoginComponent,
-    RegisterComponent,
-  ],
+  declarations: [AppComponent, AlertComponent, DashboardComponent, LoginComponent, RegisterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

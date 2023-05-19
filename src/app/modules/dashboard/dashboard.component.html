@@ -4,43 +4,18 @@
 
 <mat-divider class="!my-4"></mat-divider>
 
-<div
-  fxLayout="row"
-  fxLayoutAlign="space-between center"
-  fxLayoutGap="20px"
-  class="stats-cards"
->
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="stats-cards">
   <mat-card fxFlex="20">
-    <app-widget-card
-      label="New Users"
-      total="12k"
-      percentage="50"
-      [data]="cards"
-    ></app-widget-card>
+    <app-widget-card label="New Users" total="12k" percentage="50" [data]="cards"></app-widget-card>
   </mat-card>
   <mat-card fxFlex="20">
-    <app-widget-card
-      label="Users retention"
-      total="10k"
-      percentage="40"
-      [data]="cards"
-    ></app-widget-card>
+    <app-widget-card label="Users retention" total="10k" percentage="40" [data]="cards"></app-widget-card>
   </mat-card>
   <mat-card fxFlex="20">
-    <app-widget-card
-      label="Users engagement"
-      total="8k"
-      percentage="30"
-      [data]="cards"
-    ></app-widget-card>
+    <app-widget-card label="Users engagement" total="8k" percentage="30" [data]="cards"></app-widget-card>
   </mat-card>
   <mat-card fxFlex="20">
-    <app-widget-card
-      label="Referral"
-      total="6k"
-      percentage="20"
-      [data]="cards"
-    ></app-widget-card>
+    <app-widget-card label="Referral" total="6k" percentage="20" [data]="cards"></app-widget-card>
   </mat-card>
 </div>
 
@@ -48,7 +23,7 @@
 
 <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
   <div fxFlex="60">
-    <div class="mat-elevation-z8">
+    <div class="mat-elevation-z8 overflow-auto">
       <table mat-table [dataSource]="dataSource" class="w-full">
         <!-- Position Column -->
         <ng-container matColumnDef="position">

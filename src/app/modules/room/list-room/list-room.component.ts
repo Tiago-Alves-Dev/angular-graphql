@@ -115,18 +115,10 @@ export class ListRoomComponent extends AbstractComponent implements AfterViewIni
   }
 
   public exportExcel() {
-    this.excelService.exportAsExcelFile(
-      'Relatório de turmas',
-      '',
-      this.columsExport,
-      this.roomsExport,
-      null,
-      'relatorio-turmas',
-      'Turmas',
-    );
+    this.excelService.exportAsExcelFile('Turmas', '', this.columsExport, this.roomsExport, null, 'turmas', 'Turmas');
   }
 
   public exportPDF(): void {
-    this.generatePdfService.exportPDF([this.columsExport], this.roomsExport, 'Turmas');
+    this.generatePdfService.exportPDF([this.columsExport], this.roomsExport, 'turmas');
   }
 }

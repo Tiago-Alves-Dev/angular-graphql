@@ -3,10 +3,10 @@ import { AbstractComponent } from 'src/app/core/abstract.component';
 
 @Component({
   selector: 'app-details',
-  templateUrl: './details.component.html',
-  styleUrls: ['./details.component.scss'],
+  templateUrl: './details-room.component.html',
+  styleUrls: ['./details-room.component.scss'],
 })
-export class DetailsComponent extends AbstractComponent implements OnInit {
+export class DetailsRoomComponent extends AbstractComponent implements OnInit {
   constructor(injector: Injector) {
     super(injector);
   }
